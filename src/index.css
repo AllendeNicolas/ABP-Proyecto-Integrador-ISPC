@@ -1,0 +1,36 @@
+.app {
+  background-color: white;
+  color: black;
+  transition: all 0.3s ease;
+}
+
+.darkmode-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  padding: 10px 18px;
+  background: #222;
+  color: #ede7e7;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s;
+}
+
+.dark_mode {
+  background-color: black;
+  color: whitesmoke;
+  border: 1px solid #7b0e0e;
+}
+
+input[type="text"] {
+  padding: 8px;
+  border-radius: 10px;
+  border: 2px solid #3c3094;
+}
+
+.dark_mode .stats-panel {
+  background: #222;
+  color: #fff;
+}
