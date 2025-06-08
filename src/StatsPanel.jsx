@@ -6,6 +6,7 @@ const StatsPanel = ({
   max,
   min,
   cantLargo,
+  promedio,
 }) => (
   <>
     <button
@@ -17,15 +18,17 @@ const StatsPanel = ({
             : "bg-green-900 text-white hover:bg-green-700"
         }`}
     >
-      {show ? "OCULTAR ESTADISTICA" : "MOSTRAR ESTADISTICA"}
+      {show ? "OCULTAR ESTADISTICAS" : "MOSTRAR ESTADISTICAS"}
     </button>
     {show && (
       <div className="stats-panel bg-gray-100 p-6 rounded-lg shadow-md mt-6 transition-transform duration-300 transform hover:scale-105">
         <h2 className="text-gray-800">
-          <strong className="text-violet-800">ANÁLISIS Y ESTADÍSTICAS</strong>
+          <strong className="text-red-500">ANÁLISIS Y ESTADÍSTICAS</strong>
         </h2>
         <br />
         <p>PRECIO TOTAL DE PRODUCTOS FILTRADOS: ${precioTotal}</p>
+        <br />
+        <p>PRECIO PROMEDIO DE PRODUCTOS FILTRADOS: ${promedio}</p>
         <br />
         <p>PRODUCTOS TOTALES: {total}</p>
         <br />

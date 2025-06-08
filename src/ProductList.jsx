@@ -1,8 +1,8 @@
-const ProductList = ({ show, onToggle, filteredProducts }) => (
+const ProductList = ({ show, onToggle, filteredProducts = [] }) => (
   <>
     <button
       onClick={onToggle}
-      className={`px-6 py-2 rounded-lg font-bold text-lg transition-colors duration-300
+      className={`px-6 py-2 mb-3 rounded-lg font-bold text-lg transition-colors duration-300
         ${
           show
             ? "bg-red-900 text-white hover:bg-red-700"
@@ -12,28 +12,26 @@ const ProductList = ({ show, onToggle, filteredProducts }) => (
       {show ? "OCULTAR LISTA" : "MOSTRAR"}
     </button>
     <br />
-    {show && (
-      <ul className="animate_fadeIn">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    {show &&
+      (filteredProducts.length > 0 ? (
+        <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 animate_fadeIn">
           {filteredProducts.map((product) => (
             <li
               key={product.id}
-              className="border p-4 rounded-lg shadow-md bg_white hover:shadow-lg transition-shadow duration-200"
+              className="border p-3 rounded-lg shadow-md bg_white hover:shadow-lg transition-shadow duration-200"
             >
               <h2 className="text-lg font-semibold">{product.title}</h2>
               <p className="text-violet-700">Precio: ${product.price}</p>
             </li>
           ))}
+        </ul>
+      ) : (
+        <div>
+          <strong className="text-red-500">
+            ¡NO SE ENCONTRARON PRODUCTOS!
+          </strong>
         </div>
-      </ul>
-    )}
-    {filteredProducts.length === 0 && (
-      <div>
-        <strong className="text-red-500">
-          "¡NO SE ENCONTRARON PRODUCTOS!"
-        </strong>
-      </div>
-    )}
+      ))}
   </>
 );
 
