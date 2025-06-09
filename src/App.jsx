@@ -55,37 +55,7 @@ const App = () => {
     filteredProducts.sort((a, b) => b.rating - a.rating);
   }
 
-  // Estadísticas (Modificacion para que funcione con los filtros por categorias)
-  // Las Estadísticas funcionan tanto para el b
-  //
-  // //Total Productos filtradosuscador, como para los filtro por categorías, recordar NO TRADUCIR LA PAGINA A ESPAÑOL, porque de lo contrario no FUNCIONAN LOS FILTROS
-  const totalProducts = filteredProducts.length;
-
-  //Producto demayaro valor filtrado
-  const maxProduct =
-    totalProducts > 0 ? Math.max(...filteredProducts.map((p) => p.price)) : 0;
-
-  //Producto de menor valor filtrado
-
-  const minProduct =
-    totalProducts > 0 ? Math.min(...filteredProducts.map((p) => p.price)) : 0;
-
-  //Producto de más de 20 caracteres (conservado de evidencia anterior, para uso en catalogo de emprendimiento)
-  const cantProductoVeinteCaracteres = filteredProducts.filter(
-    (p) => p.title && p.title.length > 20
-  ).length;
-
-  //Precio total de productos filtrados
-  const precioTotalProductosFiltrados = filteredProducts.reduce(
-    (total, p) => total + (p.price || 0),
-    0
-  );
-
-  //Promedip de precio de productos filtrados
-  const promedioProductosFiltrados =
-    totalProducts > 0 ? precioTotalProductosFiltrados / totalProducts : 0;
-
-  //Para realizar el modo oscuro, tuve utilizar esta función, porque la sugerida en clase, no me funcionaba.
+  //Para realizar el modo oscuro, tuve que utilizar esta función, porque la sugerida en clase, no me funcionaba.
 
   const toggleDarkmode = () => {
     setDarkMode((prev) => !prev);
@@ -98,6 +68,9 @@ const App = () => {
           "CATALOGO DE PRODUCTOS"
         </h1>
         <br />
+
+        {/*Boton modo oscuro*/}
+
         <button className="darkmode-btn" onClick={toggleDarkmode}>
           <strong>MODO OSCURO</strong>
         </button>
@@ -121,7 +94,9 @@ const App = () => {
             </option>
           ))}
         </select>
-        {/* selección para ordenamiento */}
+
+        {/* SELECTOR DE ORDENAMIENTO, funciona tambien con los precios ya filtrados */}
+
         <select
           className="border rounded px-3 py-2 mb-4 dark:bg-blue-400 dark:text-white"
           value={sortOption}
@@ -137,6 +112,8 @@ const App = () => {
         <hr />
         <br />
         <h1>
+          {/*LISTA DE PRODUCTOS*/}
+
           <strong className="text-green-600">LISTA DE PRODUCTOS</strong>
         </h1>
         <br />
@@ -150,15 +127,11 @@ const App = () => {
         <br />
         <hr />
         <br />
+        {/* MOSTRAR ESTADISTICAS, muestra las estadísticas, además, aquellas cuando se filtran productos en el buscador */}
         <StatsPanel
           show={showStatsPanel}
           onToggle={() => setShowStatsPanel(!showStatsPanel)}
-          precioTotal={precioTotalProductosFiltrados}
-          promedio={promedioProductosFiltrados}
-          total={totalProducts}
-          max={maxProduct}
-          min={minProduct}
-          cantLargo={cantProductoVeinteCaracteres}
+          products={filteredProducts} // <-- pásale el array filtrado
         />
       </div>
     </div>
