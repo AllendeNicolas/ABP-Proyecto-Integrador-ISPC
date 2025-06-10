@@ -1,4 +1,4 @@
-const ProductList = ({ show, onToggle, filteredProducts = [] }) => (
+const ProductList = ({ products, show, onToggle }) => (
   <>
     <button
       onClick={onToggle}
@@ -13,9 +13,9 @@ const ProductList = ({ show, onToggle, filteredProducts = [] }) => (
     </button>
     <br />
     {show &&
-      (filteredProducts.length > 0 ? (
+      (products.length > 0 ? (
         <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 animate_fadeIn">
-          {filteredProducts.map((product) => (
+          {products.map((product) => (
             <li
               key={product.id}
               className="border p-3 rounded-lg shadow-md bg_white hover:shadow-lg transition-shadow duration-200"

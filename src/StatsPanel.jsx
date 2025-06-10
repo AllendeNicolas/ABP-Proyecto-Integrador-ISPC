@@ -48,13 +48,12 @@ function StatsPanel({ show, onToggle, products }) {
     );
   }
 
-  // Estadísticas generales
+  // ESTADISICAS GENERALS + FUNCIONES DE FILTRADO Y ORDENAMIENTO
   const masCaro = products.reduce(
     (max, p) => (p.price > max.price ? p : max),
     products[0]
   );
-  //Total Productos filtradosuscador, como para los filtro por categorías, recordar NO TRADUCIR LA PAGINA A ESPAÑOL, porque de lo contrario no FUNCIONAN LOS FILTROS
-  const totalProducts = filteredProducts.length;
+
   const masBarato = products.reduce(
     (min, p) => (p.price < min.price ? p : min),
     products[0]
@@ -100,7 +99,7 @@ function StatsPanel({ show, onToggle, products }) {
       (productosPorCategoria[p.category] || 0) + 1;
   });
 
-  // Convertimos a array para Recharts
+  // CONVERTIDOR ARRAY Recharts
   const dataBarras = Object.entries(productosPorCategoria).map(
     ([categoria, cantidad]) => ({
       categoria,
@@ -114,7 +113,7 @@ function StatsPanel({ show, onToggle, products }) {
     price: p.price + Math.floor(Math.random() * 20) - 10, // simulación con variación aleatoria
   }));
 
-  // Datos para pie chart de stock
+  // Datos para pie chart de stock (FUNCIÓN CON FILTRO)
   const stockRanges = {
     bajo: products.filter((p) => p.stock <= 20).length,
     medio: products.filter((p) => p.stock > 20 && p.stock <= 50).length,
@@ -135,35 +134,48 @@ function StatsPanel({ show, onToggle, products }) {
       >
         OCULTAR ESTADÍSTICAS
       </button>
-      <div className="stats-panel bg-gray-100 p-6 rounded-lg shadow-md mt-6 transition-transform duration-300 transform hover:scale-105">
-        <h2 className="text-gray-800">
+      <div className="stats-panel bg-gray-200 p-6 rounded-lg shadow-md mt-6 transition-transform duration-300 transform hover:scale-105">
+        <h2 className="text-gray-200">
           <strong className="text-red-500">ANÁLISIS Y ESTADÍSTICAS</strong>
         </h2>
-        <br />
-        <p>PRODUCTOS TOTALES: {totalProducts}</p>
-        <br />
-        <p>PRECIO TOTAL DE PRODUCTOS FILTRADOS: ${precioTotal.toFixed(2)}</p>
-        <br />
-        <p>PRECIO PROMEDIO DE PRODUCTOS FILTRADOS: ${precioPromedio}</p>
-        <br />
-        <p>PRODUCTOS TOTALES: {products.length}</p>
-        <br />
-        <p>
-          PRODUCTO MÁS CARO: {masCaro.title} (${masCaro.price})
-        </p>
-        <br />
-        <p>
-          PRODUCTO MÁS ECONÓMICO: {masBarato.title} (${masBarato.price})
-        </p>
-        <br />
-        <p>PROMEDIO DE DESCUENTO: {promedioDescuento}%</p>
-        <br />
-        <p>PRODUCTOS CON MÁS DE 20 CARACTERES: {titulosLargos}</p>
-        <br />
-
-        {/* Gráfico de barras de productos por categoría */}
-        <h4 className="text-xl font-semibold mt-8 mb-2 text-gray-800">
-          Productos por categoría
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          <p className="bg-blue-200 text-violet-700 rounded shadow p-4">
+            <span className="font-semibold">PRECIO TOTAL:</span>
+            <br />${precioTotal.toFixed(2)}
+          </p>
+          <p className="bg-blue-200 text-violet-700 rounded shadow p-4">
+            <span className="font-semibold">PRECIO PROMEDIO:</span>
+            <br />${precioPromedio}
+          </p>
+          <p className="bg-blue-200 text-violet-700 rounded shadow p-4">
+            <span className="font-semibold">PRODUCTOS TOTALES:</span>
+            <br />
+            {products.length}
+          </p>
+          <p className="bg-blue-200 text-violet-700 rounded shadow p-4">
+            <span className="font-semibold">PRODUCTO MÁS CARO:</span>
+            <br />
+            {masCaro.title} (${masCaro.price})
+          </p>
+          <p className="bg-blue-200 text-violet-700 rounded shadow p-4">
+            <span className="font-semibold">PRODUCTO MÁS ECONÓMICO:</span>
+            <br />
+            {masBarato.title} (${masBarato.price})
+          </p>
+          <p className="bg-blue-200 text-violet-700 rounded shadow p-4">
+            <span className="font-semibold">PROMEDIO DE DESCUENTO:</span>
+            <br />
+            {promedioDescuento}%
+          </p>
+          <p className="bg-blue-200 text-violet-700 rounded shadow p-4">
+            <span className="font-semibold">+20 CARACTERES:</span>
+            <br />
+            {titulosLargos}
+          </p>
+        </div>
+        {/* GRAFICO DE BARRAS PRODUTOS POR CATEGORÍAS */}
+        <h4 className="text-xl font-semibold mt-8 mb-2 text-blue-600">
+          GRÁFICO DE PRODUCTOS POR CATEGORÍA:
         </h4>
         <div style={{ width: "100%", height: 300 }}>
           <ResponsiveContainer>
@@ -172,34 +184,48 @@ function StatsPanel({ show, onToggle, products }) {
               <XAxis dataKey="categoria" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="cantidad" fill="#8884d8" />
+              <Bar dataKey="cantidad" fill="#8884d9" />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
-        <h3 className="text-xl font-semibold mt-6 mb-2">Por categoría</h3>
-        <ul className="list-disc pl-6">
+        <h3 className="text-xl text-blue-700 font-semibold mt-6 mb-2">
+          POR CATEGORÍA:
+        </h3>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pl-0">
           {Object.entries(categorias).map(([categoria, data]) => {
             const cantidad = data.productos.length;
             const promedioPrecio = (data.totalPrecio / cantidad).toFixed(2);
             const promedioRating = (data.totalRating / cantidad).toFixed(2);
             return (
-              <li key={categoria} className="mb-2">
-                <strong>{categoria}</strong>:<br />- Cantidad de productos:{" "}
-                {cantidad}
-                <br />- Precio promedio: ${promedioPrecio}
-                <br />- Rating promedio: {promedioRating}
-                <br />- Más caro: {data.masCaro.title} (${data.masCaro.price})
-                <br />- Más barato: {data.masBarato.title} ($
-                {data.masBarato.price})
+              <li
+                key={categoria}
+                className="bg-gray-900 rounded-lg shadow p-4 flex flex-col items-start border border-gray-200"
+              >
+                <strong className="text-lg text-blue-400">{categoria}</strong>
+                <span className="text-sm text-blue-500">
+                  Cantidad: {cantidad}
+                </span>
+                <span className="text-sm text-gray-700">
+                  Precio promedio: ${promedioPrecio}
+                </span>
+                <span className="text-sm text-gray-700">
+                  Rating promedio: {promedioRating}
+                </span>
+                <span className="text-sm text-green-700">
+                  Más caro: {data.masCaro.title} (${data.masCaro.price})
+                </span>
+                <span className="text-sm text-red-700">
+                  Más barato: {data.masBarato.title} (${data.masBarato.price})
+                </span>
               </li>
             );
           })}
         </ul>
 
-        {/* Gráfico de líneas: evolución de precios */}
-        <h4 className="text-xl font-semibold mt-8 text-gray-800">
-          Evolución de Precios (simulada)
+        {/*GRAFICO SIMULADO DE PRECIOS */}
+        <h4 className="text-xl font-semibold mt-8 text-blue-600">
+          EVOLUCIÓN DE PRECIOS SIMULADOS:
         </h4>
         <ResponsiveContainer width="100%" height={250}>
           <LineChart data={priceEvolution}>
@@ -215,9 +241,9 @@ function StatsPanel({ show, onToggle, products }) {
           </LineChart>
         </ResponsiveContainer>
 
-        {/* Pie chart: proporción de productos según stock */}
-        <h4 className="text-xl font-semibold mt-8 text-gray-800">
-          Distribución de Stock
+        {/* Pie chart: pRODUCTOS POR STOCK */}
+        <h4 className="text-xl font-semibold mt-8 text-blue-600">
+          DISTRIBUCIÓN DE STOK DE PRODUCTOS:
         </h4>
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
