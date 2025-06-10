@@ -44,7 +44,7 @@ https://tailwindcss.com/docs/installation/using-vit </li>
  -> npm run dev
  Acceder al proyecto en:
  http://localhost:5173 (URL por defecto generada por Vite) </li>
-  <li> 6) Descargar el Proyecto de Git Hub ingresando al siguiente link <a href="https://github.com/AllendeNicolas/Proyecto-Integrador-ISPC-2025/tree/main/Evidencias"><strong>Ver Evidencias »</strong</a> </li>
+  <li> 6) Descargar el Proyecto de Git Hub ingresando al siguiente link <a href="https://github.com/AllendeNicolas/ABP-Proyecto-Integrador-ISPC/tree/main/src"><strong>Ver Proyecto ABP - Allende Olmedo Nicolás »</strong</a> </li>
   <li> 7) Ejecutar el Archivo en VS Code</li>
   <li> 8) En una nueva terminal, ejecutar los siguientes comandos: 1) cd "Evidencia uno proyecto integrador" - 2) npm run dev - 3) Acceder al proyecto en:
  http://localhost:5173 (URL por defecto generada por Vite) </li>
